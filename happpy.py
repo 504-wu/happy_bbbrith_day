@@ -2,7 +2,6 @@ import streamlit as st
 import random
 import time
 
-# 1. 頁面基本配置與全域樣式（隱藏 Streamlit 預設元件）
 st.set_page_config(page_title="Happy Birthday Surprise!", layout="wide", initial_sidebar_state="collapsed")
 
 st.markdown("""
@@ -17,7 +16,6 @@ st.markdown("""
 # 壽星設定（可自由修改名字）
 SU_XING_NAME = "壽星名字"
 
-# 2. 初始化 Session State 狀態控制
 if "page" not in st.session_state:
     st.session_state.page = "button_page"
 
@@ -27,8 +25,6 @@ if "chosen_name_color" not in st.session_state:
     st.session_state.chosen_name_color = random.choice(text_colors)
     st.session_state.chosen_hb_color = random.choice([c for c in text_colors if c != st.session_state.chosen_name_color])
 
-# 3. 監聽網址上的 query_params（新版 Streamlit 使用 st.query_params）
-# 只要偵測到 click_trigger=true，就代表使用者真的按下了紅色按鈕
 if st.query_params.get("click_trigger") == "true":
     st.session_state.page = "surprise_page"
 
@@ -79,14 +75,14 @@ if st.session_state.page == "button_page":
     </style>
 """, unsafe_allow_html=True)
 
-    # 1. 垂直置中：利用多個內建空行，將中間的按鈕穩穩推到網頁的垂直中央
+
     st.write("")
     st.write("")
     st.write("")
     st.write("")
     st.write("")
 
-    # 2. 水平置中：使用超高比例 [2.5, 1, 2.5] 進行極限壓縮，把中間格子縮小到跟按鈕一樣寬
+
     col1, col2, col3 = st.columns([2, 1, 2.5])
     
     with col2:
@@ -95,7 +91,7 @@ if st.session_state.page == "button_page":
             st.rerun()
     st.markdown('</div>', unsafe_allow_html=True)
 
-# --- 畫面 2：煙火與 Dinotaeng Quokka 驚喜慶生 ---
+# 煙火與 Dinotaeng Quokka 驚喜慶生 
 elif st.session_state.page == "surprise_page":
     st.html("""
         <style>
@@ -120,7 +116,7 @@ elif st.session_state.page == "surprise_page":
             background: transparent !important;
         }
 
-        /* 🎇 強制讓中間欄位裡面的所有 Streamlit 區塊物件（文字、圖片、空位）全部完美水平居中 */
+
         div[data-testid="stColumn"]:nth-of-type(2) [data-testid="stVerticalBlock"] > div {
             display: flex !important;
             flex-direction: column !important;
@@ -137,7 +133,7 @@ elif st.session_state.page == "surprise_page":
             width: 100% !important;
         }
 
-        /* 3. 煙火畫布 */
+        /*  煙火畫布 */
         .firework-canvas {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -280,7 +276,6 @@ elif st.session_state.page == "surprise_page":
             hb_placeholder.markdown(f"<h2 style='color: {chosen_hb_color}; font-size: 45px; font-weight: 900; font-family: \"Comic Sans MS\", sans-serif; text-shadow: 0 0 15px {chosen_hb_color}; text-align: center; width: 100%;'>{current_hb}</h2>", unsafe_allow_html=True)
             time.sleep(0.15)
 
-        # 🟢 蛋糕往下移：margin-top 從 30px 增加到 70px，拉開與文字的距離
         st.markdown('<div style="margin-top: 15px;"></div>', unsafe_allow_html=True)
 
         # 渲染置中蛋糕圖片與說明文字
