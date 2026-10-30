@@ -341,7 +341,7 @@ elif st.session_state.stage == "test1_game":
         <canvas id="gameCanvas" width="800" height="600"></canvas>
         
         <div id="jumpscare">
-            <img src="https://media.gq.com.tw/photos/5e63512f66b96d00082a939b/1:1/w_563,h_563,c_limit/intro-1578332754.jpg" alt="Jumpscare">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaoHBEGXxkI4jtJ54AZwlEDD_K0o-hF0_R65wuQtGbItbb8fXnZzK12SQ&s=10" alt="Jumpscare">
         </div>
 
         <script>
