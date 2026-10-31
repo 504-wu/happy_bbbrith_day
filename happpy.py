@@ -982,6 +982,55 @@ elif st.session_state.stage == "license":
                 <input id="swipe-slider" type="range" min="0" max="100" value="0" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0; cursor: pointer; z-index: 3;">
             </div>
 
+        <!-- 星星動畫樣式與專屬容器 -->
+<style>
+    .balloon-container {{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        pointer-events: none; /* 確保不擋住下方 */
+        z-index: 100000;      /* 確保飄在照片前方 */
+    }}
+
+    /* 星星基本樣式 */
+    .star {{
+        position: absolute;
+        bottom: -50px;
+        font-family: sans-serif;
+        line-height: 1;
+        user-select: none;
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.6); /* 讓星星帶有微微的金光 */
+        animation: floatUpUp 5s linear forwards;
+    }}
+
+    /* 星星上升與左右搖擺的平滑動畫 */
+    @keyframes floatUpUp {{
+        0% {{
+            transform: translateY(0) translateX(0) rotate(0deg);
+            opacity: 0;
+        }}
+        10% {{
+            opacity: 1; /* 剛從底部出來時漸顯 */
+        }}
+        50% {{
+            transform: translateY(-50vh) translateX(30px) rotate(180deg);
+        }}
+        90% {{
+            opacity: 1;
+        }}
+        100% {{
+            transform: translateY(-120vh) translateX(-20px) rotate(360deg);
+            opacity: 0; /* 飄到頂部時淡出 */
+        }}
+    }}
+</style>
+
+<!-- 星星產生的容器 -->
+<div id="balloon-area" class="balloon-container"></div>
+           
             <!-- ====== 最後收尾：滿版煙火與全螢幕祝賀彈窗 ====== -->
             <div id="birthday-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; flex-direction: column; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box;">
                 <canvas id="fireworks-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
@@ -1014,7 +1063,7 @@ elif st.session_state.stage == "license":
         <!-- 下一個畫面：包含一個居中按鈕 -->
         <div id="next-stage-view" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #222; justify-content: center; align-items: center; z-index: 99998;">
             <!-- 點擊後隱藏自己，顯示照片 -->
-            <button onclick="document.getElementById('next-stage-view').style.display='none'; document.getElementById('full-image-view').style.display='flex';" style="padding: 15px 30px; background: #00ffcc; border: none; color: black; font-weight: bold; border-radius: 30px; cursor: pointer; font-size: 18px; box-shadow: 0 4px 15px rgba(0,255,204,0.4);">
+            <button onclick="showSurprise()" style="padding: 15px 30px; background: #00ffcc; border: none; color: black; font-weight: bold; border-radius: 30px; cursor: pointer; font-size: 18px; box-shadow: 0 4px 15px rgba(0,255,204,0.4);">
                 查看驚喜
             </button>
         </div>
@@ -1129,6 +1178,52 @@ elif st.session_state.stage == "license":
         }}
         if(overlay.style.display === 'flex') {{
             requestAnimationFrame(setupFireworksLoop);
+        }}
+    }}
+
+    // 當點開查看驚喜時，才切換畫面並跑出星星
+    function showSurprise() {{
+        document.getElementById('next-stage-view').style.display = 'none';
+        document.getElementById('full-image-view').style.display = 'flex';
+        createStars(); // 觸發星星特效
+    }}
+
+    //動態大量生成星星的運算邏輯
+    function createStars() {{
+        const balloonArea = document.getElementById('balloon-area');
+        const starCount = 50; // 星星總數量
+        // 調配璀璨的星星色系：金色、黃色、極光綠、亮粉、暖白
+        const colors = ['#FFD700', '#FFF700', '#00FFCC', '#FF3399', '#FFFFFF', '#FFE4B5'];
+
+        for (let i = 0; i < starCount; i++) {{
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.innerHTML = '★'; // 使用純文字星星，絕對不跑位、不留方塊
+
+            // 隨機星星大小
+            const size = Math.floor(Math.random() * 20) + 15; // 15px ~ 35px 之間
+            star.style.fontSize = size + 'px';
+            
+            // 隨機水平出生位置
+            star.style.left = Math.random() * 100 + 'vw';
+            
+            // 隨機挑選顏色
+            star.style.color = colors[Math.floor(Math.random() * colors.length)];
+
+            // 隨機動畫延遲時間，製造錯落上升感
+            const delay = Math.random() * 2.5; 
+            star.style.animationDelay = delay + 's';
+
+            // 隨機上升速度（秒數越少越快）
+            const duration = Math.floor(Math.random() * 2) + 4; // 4 ~ 6 秒之間
+            star.style.animationDuration = duration + 's';
+
+            balloonArea.appendChild(star);
+
+            // 動態結束後自動從網頁移除
+            setTimeout(() => {{
+                star.remove();
+            }}, (delay + duration) * 1000);
         }}
     }}
 </script>
