@@ -962,7 +962,7 @@ elif st.session_state.stage == "license":
                     </div>
                     
                     <!-- 底部裝飾三星與小文字 -->
-                    <div style="font-size: 16px; margin-top: 12px; color: #1a2a3a; letter-spacing: 3px;">好 快 樂 喔</div>
+                    <div style="font-size: 16px; margin-top: 12px; color: #1a2a3a; letter-spacing: 3px;">今 天 我 生 日 喔 >▽<</div>
                     <div style="font-size: 16px; margin-top: 12px; color: #1a2a3a; letter-spacing: 3px;">努 力 的 過 好 每 天</div>
                     
                     <!-- 最底部版權與暗號小字 -->
@@ -1046,7 +1046,7 @@ elif st.session_state.stage == "license":
                     
                     <div style="margin-bottom: 25px; border-left: 4px solid #ffcc00; padding-left: 10px;">
                         <b style="color: #ffcc00;"> 奇犽：</b>
-                        <p style="margin: 5px 0 0 0; color: #ddd; font-size: 14px; line-height: 1.4;">「哼，能通過試驗算你厲害！你可別高興得太早，真正的冒險才剛開始呢！」</p>
+                        <p style="margin: 5px 0 0 0; color: #ddd; font-size: 14px; line-height: 1.4;">「哼，能通過試驗算你厲害！你可別高興得太早，今後的冒險才剛開始呢！」</p>
                     </div>
 
                     <div style="margin-bottom: 25px; border-left: 4px solid #ffcc00; padding-left: 10px;">
@@ -1054,17 +1054,17 @@ elif st.session_state.stage == "license":
                         <p style="margin: 5px 0 0 0; color: #ddd; font-size: 14px; line-height: 1.4;">「這可是花費我每天1~2小時的嘔心瀝血之作，祝你生日快樂ㄚㄚㄚㄚ！」</p>
                     </div>
                     
-                   <button onclick="document.getElementById('birthday-overlay').style.display='none'; document.getElementById('next-stage-view').style.display='flex';" style="display: block; width: 100%; padding: 10px; background: #ffcc00; border: none; color: black; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 14px;">關閉祝福</button>
+                   <button onclick="document.getElementById('birthday-overlay').style.display='none'; document.getElementById('next-stage-view').style.display='flex';" style="display: block; width: 100%; padding: 10px; background: #ffcc00; border: none; color: black; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 14px;">關閉</button>
                 </div>
             </div>
         </div>
 
         <!-- ====== 下一個畫面（按鈕）與滿版照片的 HTML 結構 ====== -->
         <!-- 下一個畫面：包含一個居中按鈕 -->
-        <div id="next-stage-view" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #222; justify-content: center; align-items: center; z-index: 99998;">
+                <div id="next-stage-view" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #222; justify-content: center; align-items: center; z-index: 99998;">
             <!-- 點擊後隱藏自己，顯示照片 -->
             <button onclick="showSurprise()" style="padding: 15px 30px; background: #00ffcc; border: none; color: black; font-weight: bold; border-radius: 30px; cursor: pointer; font-size: 18px; box-shadow: 0 4px 15px rgba(0,255,204,0.4);">
-                查看驚喜
+                確定要點??
             </button>
         </div>
 
