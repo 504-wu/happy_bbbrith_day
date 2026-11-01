@@ -49,13 +49,13 @@ if "stage" not in st.session_state:
 if "page" not in st.session_state:
     st.session_state.page = "birthday_wish"
 
-# 【字體調亮優化】自訂獵人風 CSS 樣式
+# 獵人風 CSS 
 st.markdown("""
 <style>
     body { background-color: #1a1a1a; color: #ffffff; }
     .stApp { background-color: #1a1a1a; }
     
-    /* 🛠️ 終極修正：強制按鈕、按鈕內的所有文字標籤（span, p）全部變深色 */
+    /* 強制按鈕、按鈕內的所有文字標籤（span, p）全部變深色 */
     .stApp div[data-testid="stButton"] button,
     .stApp div[data-testid="stButton"] button *,
     .stApp button[kind="secondary"],
@@ -88,7 +88,7 @@ st.markdown("""
         box-shadow: 0 0 15px #ffcc00 !important;
     }
     
-    /* 🛠️ 東巴毒果汁按鈕專屬特殊樣式（亮橘色誘敵） */
+    /* 果汁按鈕樣式 */
     div[data-testid="stMarkdownContainer"] + div .tonpa-btn button {
         background: linear-gradient(45deg, #ff9900, #ff5500) !important;
         color: #ffffff !important;
@@ -269,11 +269,11 @@ if st.session_state.stage == "login":
         }
 
         // 啟動所有號碼球的飛行
-        setupFlyingNumber('gon-num', 13);
-        setupFlyingNumber('killua-num', 16);
-        setupFlyingNumber('fake-1', 14);
-        setupFlyingNumber('fake-2', 12);
-        setupFlyingNumber('fake-3', 15);
+        setupFlyingNumber('gon-num', 20);
+        setupFlyingNumber('killua-num', 20);
+        setupFlyingNumber('fake-1', 20);
+        setupFlyingNumber('fake-2', 20);
+        setupFlyingNumber('fake-3', 20);
 
         // 正確點擊小傑
         document.getElementById('gon-num').addEventListener('click', function() {
@@ -713,7 +713,7 @@ elif st.session_state.stage == "test2_game":
         unsafe_allow_html=True
     )
     
-    # 2. 戰鬥訊息框
+    # 戰鬥訊息框
     st.markdown(
         f"""
         <div style='background-color: #1a252c; border: 2px solid #f3e5ab; border-radius: 5px; padding: 12px 15px; color: #ffffff; font-family: monospace; font-size: 15px; font-weight: bold; line-height: 1.5; box-shadow: 0px 3px 10px rgba(0,0,0,0.4); width: 100%;'>
@@ -1231,3 +1231,6 @@ elif st.session_state.stage == "license":
         # 渲染 HTML 元件
         st.components.v1.html(license_and_birthday_html, height=600, scrolling=False)
 
+# ==============================================================================
+# 【秘密關】與作者玩遊戲
+# ==============================================================================
