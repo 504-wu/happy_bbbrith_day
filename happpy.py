@@ -1016,7 +1016,7 @@ elif st.session_state.stage == "license":
         
         # 顯示卡片頁面的標題
         st.markdown(f"<h1 class='hunter-title'>祝 {st.session_state.registered_name}生日快樂！</h1>", unsafe_allow_html=True)
-        st.info("[☆★☆★這可是一年一次的生日，當然要開開心心☆★☆★ :)](https://gogofight.streamlit.app/)")
+        st.info("[☆★☆★這可是一年一次的生日，當然要開開心心☆★☆★ :)←點我點我點我](https://gogofight.streamlit.app/)")
 
         license_and_birthday_html = f"""
         <div style="text-align: center; color: white; font-family: sans-serif;">
