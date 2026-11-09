@@ -214,10 +214,14 @@ st.markdown("""
         border-radius: 6px !important;
     }
 
-    /* 確保提示框內的文字與圖示維持亮白色 */
-    div[data-testid="stAlert"] * {
-        color: #ffffff !important;
-        font-weight: bold !important;
+    .stApp div[data-testid="stAlert"] p,
+    .stApp div[data-testid="stAlert"] span,
+    .stApp div[data-testid="stAlert"] div,
+    .stApp div[data-testid="stAlert"] .stMarkdown,
+    .stApp div[data-testid="stAlert"] .stMarkdown p {
+        color: #1a1a1a !important;            /* 強制深黑色文字 */
+        text-shadow: none !important;        /* 移除可能殘留的白色發光 */
+        font-weight: 800 !important;         /* 加粗讓黑字更清晰 */
     }
 </style>
 """, unsafe_allow_html=True)
