@@ -5,7 +5,7 @@ import random
 # ==============================================================================
 # 初始化與全域樣式設定
 # ==============================================================================
-st.set_page_config(page_title="2026 獵人試驗-壽星專屬場", page_icon="🎴", layout="centered")
+st.set_page_config(page_title="2026 獵人試驗-壽星專屬場", page_icon="🎴", layout="wide")
 
 # 初始化 Session State 用來控制關卡流程 (login -> water_test -> license)
 if "stage" not in st.session_state:
@@ -49,74 +49,156 @@ if "stage" not in st.session_state:
 if "page" not in st.session_state:
     st.session_state.page = "birthday_wish"
 
-# 獵人風 CSS 
 st.markdown("""
 <style>
+    /* ========================================================
+       【版面調整】
+       ======================================================== */
+    /* 縮小頁面最上方與左右邊界的內距 (Padding) */
+    .block-container {
+        padding-top: 1.5rem !important;    /* 原本約 6rem，大幅減少頂部空白 */
+        padding-bottom: 1.5rem !important;
+        padding-left: 5% !important;       /* 左右只保留 5% 邊距 */
+        padding-right: 5% !important;
+        max-width: 1100px !important;      /* 限制最大寬度避免圖片被拉得太巨型 */
+    }
+
+    /* 隱藏 Streamlit 頂部預設的透明工具列高度 */
+    header[data-testid="stHeader"] {
+        height: 2rem !important;
+        background: transparent !important;
+    }
+
+    /* 縮小區塊與區塊之間的垂直間距 (Vertical Gap) */
+    div[data-testid="stVerticalBlock"] {
+        gap: 0.6rem !important;            /* 原本預設為 1rem，改小讓排版更緊湊 */
+    }
+
+    /* 減少標題上下的外距 (Margin) */
+    .hunter-title, h1, h2, h3 {
+        margin-top: 0.2rem !important;
+        margin-bottom: 0.4rem !important;
+        padding-top: 0px !important;
+    }
+
     body { background-color: #1a1a1a; color: #ffffff; }
     .stApp { background-color: #1a1a1a; }
-    
-    /* 強制按鈕、按鈕內的所有文字標籤（span, p）全部變深色 */
-    .stApp div[data-testid="stButton"] button,
-    .stApp div[data-testid="stButton"] button *,
-    .stApp button[kind="secondary"],
-    .stApp button[kind="secondary"] * {
-        color: #1a1a1a !important;            /* 強制讓文字顯示深色（接近黑色） */
-        background-color: transparent;         /* 內層標籤背景透明，才不會遮擋外層 */
-        font-weight: bold !important;
-        font-size: 16px !important;
+
+    /* ========================================================
+       【設計邊框】
+       ======================================================== */
+    .stApp {
+        background-color: #1a1a1a;
+        /* 在左右兩側繪製 40px 寬的黃黑斜線警告邊框 */
+        background-image: 
+            linear-gradient(135deg, #ffcc00 25%, #1a1a1a 25%, #1a1a1a 50%, #ffcc00 50%, #ffcc00 75%, #1a1a1a 75%, #1a1a1a 100%),
+            linear-gradient(135deg, #ffcc00 25%, #1a1a1a 25%, #1a1a1a 50%, #ffcc00 50%, #ffcc00 75%, #1a1a1a 75%, #1a1a1a 100%);
+        background-repeat: repeat-y, repeat-y;
+        background-position: left top, right top;
+        background-size: 30px 30px;
     }
 
-    /* 針對按鈕本體強制設定背景色與邊框 */
+    /* 將中間的內容區域加上獨立的深色底色，並加上漫畫黑粗邊與黃光，與背景隔開 */
+    .block-container {
+        background-color: #151515 !important;
+        border: 4px solid #000000 !important;
+        box-shadow: 0 0 30px rgba(255, 204, 0, 0.15), 10px 10px 0px #000000 !important;
+        border-radius: 8px !important;
+        padding: 2rem !important;
+        margin-top: 2rem !important;
+        margin-bottom: 2rem !important;
+    }
+    
+    /* ========================================================
+       【基礎設定】
+       ======================================================== */
+    .stApp div[data-testid="stButton"] button *,
+    .stApp button[kind="secondary"] * {
+        color: inherit !important;             /* 繼承父層顏色，避免被 Streamlit 預設蓋掉 */
+        background-color: transparent;         
+        font-weight: 900 !important;           /* 特粗字體，展現美式漫畫感 */
+        font-family: 'Impact', 'Arial Black', sans-serif;
+        font-style: italic;                    /* 斜體字營造速度感 */
+        letter-spacing: 1px;
+    }
+
+    /* ========================================================
+       【一般按鈕】
+       ======================================================== */
     .stApp div[data-testid="stButton"] button,
     .stApp button[kind="secondary"] {
-        background-color: #ffffff !important;   /* 強制背景為白色 */
-        border: 2px solid #ffcc00 !important;   /* 黃色邊框 */
-        transition: all 0.3s ease !important;
+        color: #1a1a1a !important;
+        background-color: #ffffff !important;
+        
+        /* 動漫特有：2px 實心黑邊 + 4px 漫畫陰影 (2D 賽璐珞風) */
+        border: 3px solid #1a1a1a !important;   
+        box-shadow: 4px 4px 0px #1a1a1a !important;
+        
+        border-radius: 4px !important;         /* 稍微硬朗的微圓角 */
+        padding: 0.5rem 1.5rem !important;
+        transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.2s !important;
     }
     
-    /* 滑鼠移上去時的發光效果與文字色彩維持 */
-    .stApp div[data-testid="stButton"] button:hover,
-    .stApp div[data-testid="stButton"] button:hover *,
-    .stApp button[kind="secondary"]:hover,
-    .stApp button[kind="secondary"]:hover * {
-        color: #1a1a1a !important;              /* 文字維持深色 */
-    }
-
+    /* 懸停：念能力爆發（背景轉黃、散發黃光、按鈕稍微浮起） */
     .stApp div[data-testid="stButton"] button:hover,
     .stApp button[kind="secondary"]:hover {
-        background-color: #ffcc00 !important;   /* 背景變黃色 */
-        box-shadow: 0 0 15px #ffcc00 !important;
-    }
-    
-    /* 果汁按鈕樣式 */
-    div[data-testid="stMarkdownContainer"] + div .tonpa-btn button {
-        background: linear-gradient(45deg, #ff9900, #ff5500) !important;
-        color: #ffffff !important;
-        border: none !important;
-        box-shadow: 0 4px 10px rgba(255,85,0,0.4) !important;
-    }
-    div[data-testid="stMarkdownContainer"] + div .tonpa-btn button:hover {
-        background: #ff5500 !important;
-        box-shadow: 0 0 20px #ff5500 !important;
+        background-color: #ffcc00 !important;   
+        color: #1a1a1a !important;
+        transform: translate(-2px, -2px) !important; /* 往左上浮起 */
+        box-shadow: 6px 6px 0px #1a1a1a, 0 0 15px rgba(255, 204, 0, 0.6) !important;
     }
 
-    /* 標題調亮：增加強烈的發光特效 */
+    /* 點擊：打擊回饋（按鈕下沉、陰影消失） */
+    .stApp div[data-testid="stButton"] button:active,
+    .stApp button[kind="secondary"]:active {
+        transform: translate(4px, 4px) !important;  /* 往右下壓入 */
+        box-shadow: 0px 0px 0px #1a1a1a !important; /* 陰影歸零 */
+    }
+    
+    /* ========================================================
+       【特製按鈕】
+       ======================================================== */
+    div[data-testid="stMarkdownContainer"] + div .tonpa-btn button {
+        background: linear-gradient(135deg, #ff0055, #ff5500) !important;
+        color: #ffffff !important;
+        border: 3px solid #1a1a1a !important;   
+        box-shadow: 4px 4px 0px #1a1a1a !important;
+    }
+    
+    div[data-testid="stMarkdownContainer"] + div .tonpa-btn button * {
+        color: #ffffff !important;
+        text-shadow: 2px 2px 0px #000000;      /* 文字黑邊 */
+    }
+
+    div[data-testid="stMarkdownContainer"] + div .tonpa-btn button:hover {
+        background: linear-gradient(135deg, #ff5500, #ffcc00) !important;
+        transform: translate(-2px, -2px) !important;
+        box-shadow: 6px 6px 0px #1a1a1a, 0 0 20px #ff5500 !important;
+    }
+    
+    div[data-testid="stMarkdownContainer"] + div .tonpa-btn button:active {
+        transform: translate(4px, 4px) !important;
+        box-shadow: 0px 0px 0px #1a1a1a !important;
+    }
+
+    /* ========================================================
+       【文字與標題】
+       ======================================================== */
     .hunter-title { 
-        font-family: 'Courier New', Courier, monospace; 
+        font-family: 'Impact', 'Courier New', monospace; 
         color: #ffff00; 
         text-align: center; 
         font-weight: 900; 
-        text-shadow: 0 0 15px #ffcc00, 0 0 5px #ff8800;
-        letter-spacing: 2px;
+        text-shadow: 3px 3px 0px #000000, 0 0 20px #ff5500; /* 漫畫字體黑邊 + 念能力發光 */
+        letter-spacing: 3px;
+        transform: skewX(-5deg);
     }
     
-    /* 副標題與普通文字調亮 */
     h3, p, label, .stMarkdown { 
         color: #ffffff !important; 
         font-weight: 500;
     }
     
-    /* 提示文字調亮：從暗灰改為清晰的亮白灰色 */
     .hint-text { 
         color: #e0e0e0 !important; 
         font-size: 0.95rem; 
@@ -126,6 +208,7 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 # ==============================================================================
@@ -186,7 +269,7 @@ if st.session_state.stage == "login":
         """, unsafe_allow_html=True)
 
         #  宣告畫面上唯一的實體跳轉按鈕
-        if st.button("前往下個挑戰", key="visible_gate_btn", use_container_width=False):
+        if st.button("不能不能不能偷案喔，很重要所以說三次", key="visible_gate_btn", use_container_width=False):
             st.session_state.stage = "test1_game"  
             st.rerun()
 
@@ -269,11 +352,11 @@ if st.session_state.stage == "login":
         }
 
         // 啟動所有號碼球的飛行
-        setupFlyingNumber('gon-num', 20);
-        setupFlyingNumber('killua-num', 20);
-        setupFlyingNumber('fake-1', 20);
-        setupFlyingNumber('fake-2', 20);
-        setupFlyingNumber('fake-3', 20);
+        setupFlyingNumber('gon-num', 30);
+        setupFlyingNumber('killua-num', 30);
+        setupFlyingNumber('fake-1', 30);
+        setupFlyingNumber('fake-2', 30);
+        setupFlyingNumber('fake-3', 30);
 
         // 正確點擊小傑
         document.getElementById('gon-num').addEventListener('click', function() {
@@ -500,7 +583,7 @@ elif st.session_state.stage == "water_test":
     st.write("---")
 
     st.set_page_config(layout="wide")
-    col1, col2, col3 = st.columns([0.8, 1.6, 1], gap="large")
+    col1, col2, col3 = st.columns(3, gap="large")
 
     with col1:
         st.write("只要努力，誰都可以修習成念")
