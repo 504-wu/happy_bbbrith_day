@@ -206,10 +206,21 @@ st.markdown("""
         margin-top: 10px; 
         text-shadow: 0 0 5px rgba(255,255,255,0.5);
     }
+    div[data-testid="stAlert"] {
+        background-color: #242424 !important;        /* 深灰底色，與白字形成高對比 */
+        border: 3px solid #1a1a1a !important;        /* 漫畫粗黑邊 */
+        outline: 2px solid #ffcc00 !important;       /* 獵人亮黃外框線 */
+        box-shadow: 4px 4px 0px #000000 !important;  /* 2D 漫畫立體陰影 */
+        border-radius: 6px !important;
+    }
+
+    /* 確保提示框內的文字與圖示維持亮白色 */
+    div[data-testid="stAlert"] * {
+        color: #ffffff !important;
+        font-weight: bold !important;
+    }
 </style>
 """, unsafe_allow_html=True)
-
-
 
 # ==============================================================================
 # 【第一關】獵人試驗網站登入（號碼牌意象）
