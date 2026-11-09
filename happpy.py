@@ -830,7 +830,7 @@ elif st.session_state.stage == "test2_game":
             st.markdown("<h3 style='text-align:center; color:#ffb703; margin:10px 0;'> 西索 </h3>", unsafe_allow_html=True)
             st.image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSroX247tp4bqOS-L-jSLkcngpCvxs0UANA0JRvs2OtUOrqR3aCTrNHyOs&s=10", width=350)
         else:
-            st.markdown("<h2 style='text-align:center; color:gray; margin:30px 0;'> 西索已陣亡</h2>", unsafe_allow_html=True)
+            st.markdown("<h2 style='text-align:center; color:gray; margin:30px 0;'> 西索 is dead</h2>", unsafe_allow_html=True)
     st.write("")
 
     # 處理回合戰鬥邏輯
@@ -845,7 +845,7 @@ elif st.session_state.stage == "test2_game":
             if st.button("剪刀石頭布", key="gon_btn", use_container_width=True):
                 player_action = "gon_skill"
         else:
-            st.button("無法動", key="gon_btn_dis", disabled=True, use_container_width=True)
+            st.button("昏倒了", key="gon_btn_dis", disabled=True, use_container_width=True)
             
         st.markdown(f"""
             <div class='status-grid'>
@@ -876,7 +876,7 @@ elif st.session_state.stage == "test2_game":
             if st.button("溜溜球", key="killua_btn", use_container_width=True):
                 player_action = "killua_skill"
         else:
-            st.button("無法動", key="killua_btn_dis", disabled=True, use_container_width=True)
+            st.button("昏倒了", key="killua_btn_dis", disabled=True, use_container_width=True)
             
         st.markdown(f"""
             <div class='status-grid'>
@@ -1015,7 +1015,7 @@ elif st.session_state.stage == "license":
         current_user_name = st.session_state.registered_name   
         
         # 顯示卡片頁面的標題
-        st.markdown(f"<h1 class='hunter-title'>恭喜 {st.session_state.registered_name}！</h1>", unsafe_allow_html=True)
+        st.markdown(f"<h1 class='hunter-title'>祝 {st.session_state.registered_name}生日快樂！</h1>", unsafe_allow_html=True)
         st.info("[☆★☆★這可是一年一次的生日，當然要開開心心☆★☆★ :)](https://gogofight.streamlit.app/)")
 
         license_and_birthday_html = f"""
