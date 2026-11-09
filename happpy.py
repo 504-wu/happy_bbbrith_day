@@ -830,7 +830,7 @@ elif st.session_state.stage == "test2_game":
             if st.button("剪刀石頭布", key="gon_btn", use_container_width=True):
                 player_action = "gon_skill"
         else:
-            st.button("無法行動", key="gon_btn_dis", disabled=True, use_container_width=True)
+            st.button("無法動", key="gon_btn_dis", disabled=True, use_container_width=True)
             
         st.markdown(f"""
             <div class='status-grid'>
@@ -846,7 +846,7 @@ elif st.session_state.stage == "test2_game":
             if st.button("嘴砲攻擊", key="birthday_btn", use_container_width=True):
                 player_action = "birthday_skill"
         else:
-            st.button("無法行動", key="birthday_btn_dis", disabled=True, use_container_width=True)
+            st.button("我好爛", key="birthday_btn_dis", disabled=True, use_container_width=True)
             
         st.markdown(f"""
             <div class='status-grid'>
@@ -861,7 +861,7 @@ elif st.session_state.stage == "test2_game":
             if st.button("溜溜球", key="killua_btn", use_container_width=True):
                 player_action = "killua_skill"
         else:
-            st.button("無法行動", key="killua_btn_dis", disabled=True, use_container_width=True)
+            st.button("無法動", key="killua_btn_dis", disabled=True, use_container_width=True)
             
         st.markdown(f"""
             <div class='status-grid'>
@@ -906,7 +906,7 @@ elif st.session_state.stage == "test2_game":
         if st.session_state.hisoka_hp <= 0:
             st.session_state.hisoka_hp = 0
             st.session_state.game_over = True
-            st.session_state.log_message = msg + "<br> 西索倒下了！你們獲得了天空競技場的勝利！"
+            st.session_state.log_message = msg + "<br> 西索 is dead 了！你們獲得了勝利！"
             st.rerun()
 
         # 西索反擊
