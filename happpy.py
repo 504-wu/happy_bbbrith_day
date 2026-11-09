@@ -269,7 +269,7 @@ if st.session_state.stage == "login":
         """, unsafe_allow_html=True)
 
         #  宣告畫面上唯一的實體跳轉按鈕
-        if st.button("不能不能不能偷案喔，很重要所以說三次", key="visible_gate_btn", use_container_width=False):
+        if st.button("不能不能不能偷按喔，很重要所以說三次", key="visible_gate_btn", use_container_width=False):
             st.session_state.stage = "test1_game"  
             st.rerun()
 
